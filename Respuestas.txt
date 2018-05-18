@@ -1,0 +1,65 @@
+PRUEBA TECNICA DAFITI
+
+PREGUNTAS:
+
+1) En el caso de olvidarme un archivo luego de hacer commit y push consecutivamente, lo que deberia hacer es realizar los siguientes comandos:
+
+	1) git add "path_archivo"
+	2) git commit -m "comentario del commit"
+	3) git push origin "branch"
+	
+ En el caso de no haber hecho push entonces se puede volver atras el commit manteniendo las modificaciones hechas para luego commitear todo en conjunto. El comando a realizar es el siguiente:
+	
+	1) git reset HEAD~1 (elimina el ultimo commit pero te mantiene los cambios para luego commitear)
+	2) git add "path_archivo_faltante" o un git add . (pasa a staging todos los archivos modificados)
+	3) git commit -m "comentario del commit"
+	4) git push origin "branch"
+	
+
+2) Verifico si la siguiente linea de html existe "<link rel="shortcut icon" href="favicon.ico">". Esta linea agrega el favicon en el title y en el atributo "href" 
+	debes indicar la ruta relativa correspondiente al archivo "favicon.ico". Al ser relativa la ruta, y el archivo existe en el path del sitio entonces va a contemplar el protocolo HTTPS
+	como parte de la ruta completa y no va a tener problemas de acceso al archivo. Ejemplo <link rel="shortcut icon" href="\favicon.ico"> o con ruta absoluta:
+	<link rel="shortcut icon" href="https://site.local/favicon.ico">.
+	
+3) Para poder ingorar un archivo ya commiteado en el repositorio hay que seguir los siguientes pasos:
+
+	1) Ejecutar el siguiente comando: git rm -r --cached .  (Con esto borramos el cache que tiene git en ese momento, para que no nos siga tomando el archivo a commitear)
+	2) Luego en el archivo ".gitignore" escribimos el archivo que queremos ignorar con la ruta correspondiente al mismo.
+	3) Ejecutar el siguiente comando: git add . (agregamos todos los archivos que queremos commitear y subir al repositorio.
+	4) Ejecutar el siguiente comando: git commit -m "comentario del commit" (commiteamos los archivos que estaban en staging para luego subirlos al repositorio)
+	5) Ejecutar el siguiente comando: git push origin "branch" (finalmente subimos los archivos y vamos a ver que ahora no va a subirse el archivo que registramos en el ".gitignore")
+	
+4) GTM Hace que los procesos sean mucho más fáciles, ya que mantiene los tags de diferentes productos en un solo lugar del código sin modificar la configuración 
+	en ninguna interfaz independiente. También simplifica la instalación, acelerando la implementación de los productos y, además, nos da la oportunidad de enviar 
+	información a diferentes herramientas de Google y de terceros. Esto lo hace una sola vez, en lugar de solicitar diferentes etiquetados.
+
+
+MYSQL:
+
+1) SELECT jugadores.nombre , min(jugadores.fecha_nacimiento), equipos.nombre 
+	FROM jugadores 
+	JOIN equipos on equipos.id_equipo = jugadores.id_equipo 
+	GROUP BY equipos.id_equipo 
+	ORDER BY jugadores.fecha_nacimiento
+	
+2) SELECT equipos.nombre, COUNT(partidos.equipo_visitante) as cantidad_partidos_de_visitante FROM equipos 
+	LEFT JOIN partidos on partidos.equipo_visitante = equipos.id_equipo 
+	GROUP BY partidos.equipo_visitante
+
+3) SELECT equipos.nombre, partidos.fecha_partido from partidos 
+	JOIN equipos on equipos.id_equipo = partidos.equipo_local
+	WHERE partidos.fecha_partido in ("2016-01-01", "2016-02-12")
+	GROUP BY equipos.id_equipo
+	
+4) SELECT (SELECT SUM(goles_visitante) FROM partidos WHERE equipo_visitante = (SELECT id_equipo FROM equipos WHERE nombre = "Chacarita"))
+	+
+ (SELECT SUM(goles_local) FROM partidos WHERE equipo_local = (SELECT id_equipo FROM equipos WHERE nombre = "Chacarita")) AS "Goles Totales"
+ 
+ 
+ EXTRA:
+ 
+ Para mi, la mayor innovación en desarrollo de los últimos 5 años fue la creación y aparición de "Docker". Esta herramienta empaquetar una aplicación y todas sus dependencias 
+ en un contenedor virtual que se puede ejecutar en cualquier servidor Linux. Esto ayuda a permitir la flexibilidad y portabilidad en donde la aplicación se puede ejecutar, 
+ ya sea en un servidor fisico, o en la nube.
+	
+	
